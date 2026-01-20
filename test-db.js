@@ -17,16 +17,21 @@ async function testConnection() {
         });
 
         console.log('✅ Connection successful!');
+
+        const [tables] = await connection.query('SHOW TABLES');
+        console.log('\nTables in database:');
+        if (tables.length === 0) {
+            console.log('(No tables found)');
+        } else {
+            tables.forEach(row => {
+                console.log(`- ${Object.values(row)[0]}`);
+            });
+        }
+
         await connection.end();
     } catch (error) {
         console.error('❌ Connection failed:');
         console.error(error.message);
-        if (error.code === 'ETIMEDOUT' || error.code === 'ECONNREFUSED') {
-            console.error('\nPOSSIBLE CAUSES:');
-            console.error('1. The DB_HOST is incorrect.');
-            console.error('2. Your local IP address is not whitelisted in Hostinger Remote MySQL.');
-            console.error('3. Hostinger is blocking the connection.');
-        }
     }
 }
 
