@@ -24,10 +24,12 @@ app.get('/', (req, res) => {
 const blogRoutes = require('./routes/blogs');
 const quoteRoutes = require('./routes/quotes');
 const authRoutes = require('./routes/auth');
+const contractorRoutes = require('./routes/contractors');
 
 app.use('/api/blogs', blogRoutes);
 app.use('/api/quotes', quoteRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/contractors', contractorRoutes);
 
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`-----------------------------------------------`);
